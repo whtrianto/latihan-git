@@ -7,14 +7,20 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  validate-html:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout kode
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Validasi HTML
-      uses: Cyb3r-Jak3/html5validator-action@v0.4.0
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
       with:
-    directory: ./index.html
+        node-version: '18'
+
+    - name: Install htmlhint
+      run: npm install -g htmlhint
+
+    - name: Run htmlhint
+      run: htmlhint index.html
