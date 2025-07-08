@@ -1,4 +1,4 @@
-name: CI for HTML
+name: Run JavaScript Tests
 
 on:
   push:
@@ -7,20 +7,20 @@ on:
     branches: [ main ]
 
 jobs:
-  validate-html:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repository
       uses: actions/checkout@v3
 
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '18'
+        node-version: 18
 
-    - name: Install htmlhint
-      run: npm install -g htmlhint
+    - name: Install dependencies
+      run: npm install
 
-    - name: Run htmlhint
-      run: htmlhint index.html
+    - name: Run tests
+      run: npm test
